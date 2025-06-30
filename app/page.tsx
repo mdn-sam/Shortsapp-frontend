@@ -178,18 +178,18 @@ export default function ReelsViewer() {
         minHeight: '100vh',
       }}
     >
-      <h5>Reels Viewer</h5>
+      <h1>Reels Viewer</h1>
 
       <div style={{ display: 'flex', gap: 10, justifyContent: 'center', marginBottom: 10 }}>
         <button
           onClick={() => switchSource('rumble')}
           style={{
-            fontWeight: '300',
+            fontWeight: '600',
             cursor: 'pointer',
-            padding: '4px 6px',
+            padding: '6px 12px',
             borderRadius: 6,
             backgroundColor: currentSource === 'rumble' ? 'yellow' : 'transparent',
-            color: currentSource === 'rumble' ? 'black' : 'transparent',
+            color: currentSource === 'rumble' ? 'black' : 'white',
             border: 'none',
           }}
         >
@@ -199,12 +199,12 @@ export default function ReelsViewer() {
         <button
           onClick={() => switchSource('odysee')}
           style={{
-            fontWeight: '300',
+            fontWeight: '600',
             cursor: 'pointer',
-            padding: '4px 6px',
+            padding: '6px 12px',
             borderRadius: 6,
             backgroundColor: currentSource === 'odysee' ? 'yellow' : 'transparent',
-            color: currentSource === 'odysee' ? 'black' : 'transparent',
+            color: currentSource === 'odysee' ? 'black' : 'white',
             border: 'none',
           }}
         >
@@ -218,7 +218,7 @@ export default function ReelsViewer() {
             cursor: 'pointer',
             background: 'yellow',
             color: 'black',
-            padding: '4px 6px',
+            padding: '6px 12px',
             border: 'none',
             borderRadius: 6,
           }}
@@ -226,6 +226,20 @@ export default function ReelsViewer() {
           Autoplay: {autoplay ? 'On' : 'Off'}
         </button>
       </div>
+
+      <button
+        onClick={loadVideos}
+        disabled={loading}
+        style={{
+          fontWeight: 600,
+          cursor: 'pointer',
+          marginBottom: 10,
+          padding: '10px 20px',
+          fontSize: 16,
+        }}
+      >
+        {loading ? 'Loading...' : `Load ${currentSource === 'rumble' ? 'Rumble' : 'Odysee'} Reels`}
+      </button>
 
       <div
         ref={containerRef}
@@ -237,20 +251,7 @@ export default function ReelsViewer() {
           overflow: 'hidden',
           position: 'relative',
         }}
-      ></div> 
-      <button
-        onClick={loadVideos}
-        disabled={loading}
-        style={{
-          fontWeight: 600,
-          cursor: 'pointer',
-          marginBottom: 10,
-          padding: '6px 10px',
-          fontSize: 8,
-        }}
-      >
-        {loading ? 'Loading...' : `Load ${currentSource === 'rumble' ? 'Rumble' : 'Odysee'} Reels`}
-      </button>
+      ></div>
 
       <div className="info-bar" style={{ marginTop: 10, minHeight: 20 }}>
         {infoText}
