@@ -166,7 +166,7 @@ export default function ReelsViewer() {
       height: 40,
       borderRadius: 10,
       fontSize: 18,
-      backgroundColor: active ? 'yellow' : 'rgba(255,255,255,0.1)',
+      backgroundColor: active ? 'transparent' : 'rgba(255,255,255,0.1)',
       color: active ? 'black' : 'white',
       border: '1px solid white',
       cursor: 'pointer',
