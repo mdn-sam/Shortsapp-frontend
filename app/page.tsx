@@ -265,8 +265,8 @@
 import { useEffect, useState, useRef } from 'react'
 
 const BACKENDS = {
-  rumble: 'https://backend.onrender.com',
-  odysee: 'https://2nd-backend.onrender.com',
+  rumble: 'https://reelsapp-backend.onrender.com',
+  odysee: 'https://reelsapp-2nd-backend.onrender.com',
 }
 
 export default function ReelsViewer() {
@@ -288,7 +288,7 @@ export default function ReelsViewer() {
       if (currentSource === 'rumble') {
         const randomPages = getRandomPages(3, 94)
         setInfoText(`Loaded Rumble pages: ${randomPages.join(', ')}`)
-        const urls = randomPages.map((num) => `https://rumble.com/page/${num}`)
+        const urls = randomPages.map((num) => `https://reelsmunkey.com/page/${num}`)
         const encoded = encodeURIComponent(urls.join(','))
         const res = await fetch(`${BACKENDS.rumble}/scrape-multi?urls=${encoded}`)
         const data = await res.json()
@@ -296,7 +296,7 @@ export default function ReelsViewer() {
       } else {
         const page = Math.floor(Math.random() * 99) + 2
         setInfoText(`Loaded Odysee page: ${page}`)
-        const encodedUrl = encodeURIComponent(`https://odyse.sx/page/${page}`)
+        const encodedUrl = encodeURIComponent(`https://tik.sx/page/${page}`)
         const res = await fetch(`${BACKENDS.odysee}/scrape-odysee?url=${encodedUrl}`)
         const data = await res.json()
         setVideoUrls(data.videos || [])
