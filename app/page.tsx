@@ -180,6 +180,18 @@ export default function ReelsViewer() {
     >
       <h5>Reels Viewer</h5>
 
+      <div
+        ref={containerRef}
+        className="video-container"
+        style={{
+          width: '100%',
+          height: currentSource === 'rumble' ? '100vh' : '95vh',
+          marginTop: 10,
+          overflow: 'hidden',
+          position: 'relative',
+        }}
+      ></div>  
+
       <div style={{ display: 'flex', gap: 10, justifyContent: 'center', marginBottom: 10 }}>
         <button
           onClick={() => switchSource('rumble')}
@@ -234,24 +246,12 @@ export default function ReelsViewer() {
           fontWeight: 600,
           cursor: 'pointer',
           marginBottom: 10,
-          padding: '10px 20px',
+          padding: '6px 10px',
           fontSize: 8,
         }}
       >
         {loading ? 'Loading...' : `Load ${currentSource === 'rumble' ? 'Rumble' : 'Odysee'} Reels`}
       </button>
-
-      <div
-        ref={containerRef}
-        className="video-container"
-        style={{
-          width: '100%',
-          height: currentSource === 'rumble' ? '100vh' : '95vh',
-          marginTop: 10,
-          overflow: 'hidden',
-          position: 'relative',
-        }}
-      ></div>
 
       <div className="info-bar" style={{ marginTop: 10, minHeight: 20 }}>
         {infoText}
