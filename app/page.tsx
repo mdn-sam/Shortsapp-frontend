@@ -219,10 +219,10 @@ export default function ReelsViewer() {
           ©️
         </button>
         <button onClick={() => setAutoplay((a) => !a)} title="Autoplay" style={buttonStyle(false)}>
-          🔁
+          ◉
         </button>
         <button onClick={loadVideos} disabled={loading} title="Load" style={buttonStyle(false)}>
-          ▶️
+          ▶
         </button>
       </div>
 
