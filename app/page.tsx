@@ -178,18 +178,18 @@ export default function ReelsViewer() {
         minHeight: '100vh',
       }}
     >
-      <h1>Reels Viewer</h1>
+      <h5>Reels Viewer</h5>
 
       <div style={{ display: 'flex', gap: 10, justifyContent: 'center', marginBottom: 10 }}>
         <button
           onClick={() => switchSource('rumble')}
           style={{
-            fontWeight: '600',
+            fontWeight: '300',
             cursor: 'pointer',
-            padding: '6px 12px',
+            padding: '4px 6px',
             borderRadius: 6,
             backgroundColor: currentSource === 'rumble' ? 'yellow' : 'transparent',
-            color: currentSource === 'rumble' ? 'black' : 'white',
+            color: currentSource === 'rumble' ? 'black' : 'transparent',
             border: 'none',
           }}
         >
@@ -199,12 +199,12 @@ export default function ReelsViewer() {
         <button
           onClick={() => switchSource('odysee')}
           style={{
-            fontWeight: '600',
+            fontWeight: '300',
             cursor: 'pointer',
-            padding: '6px 12px',
+            padding: '4px 6px',
             borderRadius: 6,
             backgroundColor: currentSource === 'odysee' ? 'yellow' : 'transparent',
-            color: currentSource === 'odysee' ? 'black' : 'white',
+            color: currentSource === 'odysee' ? 'black' : 'transparent',
             border: 'none',
           }}
         >
@@ -218,7 +218,7 @@ export default function ReelsViewer() {
             cursor: 'pointer',
             background: 'yellow',
             color: 'black',
-            padding: '6px 12px',
+            padding: '4px 6px',
             border: 'none',
             borderRadius: 6,
           }}
@@ -235,7 +235,7 @@ export default function ReelsViewer() {
           cursor: 'pointer',
           marginBottom: 10,
           padding: '10px 20px',
-          fontSize: 16,
+          fontSize: 8,
         }}
       >
         {loading ? 'Loading...' : `Load ${currentSource === 'rumble' ? 'Rumble' : 'Odysee'} Reels`}
