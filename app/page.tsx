@@ -16,7 +16,6 @@ export default function ReelsViewer() {
   const [loading, setLoading] = useState(false)
   const [infoText, setInfoText] = useState('')
 
-  // Load videos from backend
   async function loadVideos() {
     setLoading(true)
     setInfoText('')
@@ -48,7 +47,6 @@ export default function ReelsViewer() {
     }
   }
 
-  // Helper: random pages
   function getRandomPages(count: number, maxPage: number) {
     const pages = new Set<number>()
     while (pages.size < count) {
@@ -58,15 +56,14 @@ export default function ReelsViewer() {
     return Array.from(pages)
   }
 
-  // Navigation helpers
   function nextVideo() {
     setCurrentIndex((idx) => (idx < videoUrls.length - 1 ? idx + 1 : idx))
   }
+
   function prevVideo() {
     setCurrentIndex((idx) => (idx > 0 ? idx - 1 : idx))
   }
 
-  // Handle scroll (wheel)
   useEffect(() => {
     function onWheel(e: WheelEvent) {
       if (!videoUrls.length) return
@@ -76,7 +73,6 @@ export default function ReelsViewer() {
     return () => window.removeEventListener('wheel', onWheel)
   }, [videoUrls])
 
-  // Handle keyboard
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
       if (!videoUrls.length) return
@@ -87,7 +83,6 @@ export default function ReelsViewer() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [videoUrls])
 
-  // Handle swipe
   useEffect(() => {
     let touchStartY = 0
     let touchEndY = 0
@@ -112,13 +107,12 @@ export default function ReelsViewer() {
     }
   }, [videoUrls])
 
-  // Autoplay effect on video element
   useEffect(() => {
     if (!containerRef.current) return
     const container = containerRef.current
     const currentUrl = videoUrls[currentIndex]
 
-    container.innerHTML = '' // clear
+    container.innerHTML = ''
 
     if (!currentUrl) return
 
@@ -141,7 +135,7 @@ export default function ReelsViewer() {
       const iframe = document.createElement('iframe')
       iframe.src = currentUrl
       iframe.width = '100%'
-      iframe.style.height = '95vh'
+      iframe.style.height = '100vh'
       iframe.frameBorder = '0'
       iframe.allow = 'autoplay; fullscreen; picture-in-picture'
       iframe.allowFullscreen = true
@@ -157,7 +151,6 @@ export default function ReelsViewer() {
     }
   }, [currentIndex, videoUrls, autoplay, currentSource])
 
-  // Toggle source handler
   function switchSource(source: 'rumble' | 'odysee') {
     if (currentSource !== source) {
       setCurrentSource(source)
@@ -167,93 +160,84 @@ export default function ReelsViewer() {
     }
   }
 
+  function buttonStyle(active: boolean): React.CSSProperties {
+    return {
+      width: 40,
+      height: 40,
+      borderRadius: 10,
+      fontSize: 18,
+      backgroundColor: active ? 'yellow' : 'rgba(255,255,255,0.1)',
+      color: active ? 'black' : 'white',
+      border: '1px solid white',
+      cursor: 'pointer',
+    }
+  }
+
   return (
     <div
       style={{
-        backgroundColor: '#111',
+        backgroundColor: '#000',
         color: 'white',
         fontFamily: 'sans-serif',
-        textAlign: 'center',
         margin: 0,
-        minHeight: '100vh',
+        height: '100vh',
+        width: '100vw',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
-      <h1>Reels Viewer</h1>
-
-      <div style={{ display: 'flex', gap: 10, justifyContent: 'center', marginBottom: 10 }}>
-        <button
-          onClick={() => switchSource('rumble')}
-          style={{
-            fontWeight: '600',
-            cursor: 'pointer',
-            padding: '6px 12px',
-            borderRadius: 6,
-            backgroundColor: currentSource === 'rumble' ? 'yellow' : 'transparent',
-            color: currentSource === 'rumble' ? 'black' : 'white',
-            border: 'none',
-          }}
-        >
-          Rumble
-        </button>
-
-        <button
-          onClick={() => switchSource('odysee')}
-          style={{
-            fontWeight: '600',
-            cursor: 'pointer',
-            padding: '6px 12px',
-            borderRadius: 6,
-            backgroundColor: currentSource === 'odysee' ? 'yellow' : 'transparent',
-            color: currentSource === 'odysee' ? 'black' : 'white',
-            border: 'none',
-          }}
-        >
-          Odysee
-        </button>
-
-        <button
-          onClick={() => setAutoplay((a) => !a)}
-          style={{
-            fontWeight: '600',
-            cursor: 'pointer',
-            background: 'yellow',
-            color: 'black',
-            padding: '6px 12px',
-            border: 'none',
-            borderRadius: 6,
-          }}
-        >
-          Autoplay: {autoplay ? 'On' : 'Off'}
-        </button>
-      </div>
-
-      <button
-        onClick={loadVideos}
-        disabled={loading}
-        style={{
-          fontWeight: 600,
-          cursor: 'pointer',
-          marginBottom: 10,
-          padding: '10px 20px',
-          fontSize: 16,
-        }}
-      >
-        {loading ? 'Loading...' : `Load ${currentSource === 'rumble' ? 'Rumble' : 'Odysee'} Reels`}
-      </button>
-
+      {/* Fullscreen Video Container */}
       <div
         ref={containerRef}
-        className="video-container"
         style={{
           width: '100%',
-          height: currentSource === 'rumble' ? '100vh' : '95vh',
-          marginTop: 10,
-          overflow: 'hidden',
-          position: 'relative',
+          height: '100vh',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          zIndex: 0,
         }}
       ></div>
 
-      <div className="info-bar" style={{ marginTop: 10, minHeight: 20 }}>
+      {/* Right-side Floating Button Stack */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '50%',
+          right: 10,
+          transform: 'translateY(-50%)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 10,
+          zIndex: 10,
+        }}
+      >
+        <button onClick={() => switchSource('rumble')} title="Rumble" style={buttonStyle(currentSource === 'rumble')}>
+          ®️
+        </button>
+        <button onClick={() => switchSource('odysee')} title="Odysee" style={buttonStyle(currentSource === 'odysee')}>
+          ©️
+        </button>
+        <button onClick={() => setAutoplay((a) => !a)} title="Autoplay" style={buttonStyle(false)}>
+          🔁
+        </button>
+        <button onClick={loadVideos} disabled={loading} title="Load" style={buttonStyle(false)}>
+          ▶️
+        </button>
+      </div>
+
+      {/* Info Bar */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: 10,
+          width: '100%',
+          textAlign: 'center',
+          fontSize: 12,
+          color: '#aaa',
+          zIndex: 5,
+        }}
+      >
         {infoText}
       </div>
     </div>
