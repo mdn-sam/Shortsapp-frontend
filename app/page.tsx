@@ -216,7 +216,7 @@ export default function ReelsViewer() {
           ®️
         </button>
         <button onClick={() => window.open('/rumble', '_self')} title="Rumble Page 1" style={buttonStyle(false)}>
-          1️⃣
+          1️
         </button>     
         <button onClick={() => switchSource('odysee')} title="Odysee" style={buttonStyle(currentSource === 'odysee')}>
           ©️
