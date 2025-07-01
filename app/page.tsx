@@ -23,7 +23,7 @@ export default function ReelsViewer() {
 
     try {
       if (currentSource === 'rumble') {
-        const randomPages = getRandomPages(3, 94)
+        const randomPages = getRandomPages(1, 74)
         setInfoText(`Loaded Rumble pages: ${randomPages.join(', ')}`)
         const urls = randomPages.map((num) => `https://reelsmunkey.com/page/${num}`)
         const encoded = encodeURIComponent(urls.join(','))
@@ -31,7 +31,7 @@ export default function ReelsViewer() {
         const data = await res.json()
         setVideoUrls(data.videos || [])
       } else {
-        const page = Math.floor(Math.random() * 99) + 2
+        const page = Math.floor(Math.random() * 79) + 2
         setInfoText(`Loaded Odysee page: ${page}`)
         const encodedUrl = encodeURIComponent(`https://tik.sx/page/${page}`)
         const res = await fetch(`${BACKENDS.odysee}/scrape-odysee?url=${encodedUrl}`)
